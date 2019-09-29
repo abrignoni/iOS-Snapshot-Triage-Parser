@@ -31,8 +31,8 @@ pathfound = 0
 foldername = ("SnapshotTriageReports_" + datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
 
 #calculate timestamps
-unix = datetime.datetime(1970, 1, 1)  # UTC
-cocoa = datetime.datetime(2001, 1, 1)  # UTC
+unix = datetime.datetime(1970, 1, 1)  
+cocoa = datetime.datetime(2001, 1, 1)  
 delta = cocoa - unix 
 
 for root, dirs, filenames in os.walk(appState_dir):
@@ -111,8 +111,8 @@ else:
 		h.write('<h2>iOS Snapshots Triage Report </h2>')
 		h.write('<h3>Application: '+bundleid+'</h3>')
 		h.write('Data aggregated per following data source: '+pathfound)
-		h.write('<br/>')		
-		h.write('Times in UTC')
+		h.write('<br/>')
+		h.write('Press on the image to get full size')
 		h.write('<br/>')
 		h.write ('<style> table, th, td {border: 1px solid black; border-collapse: collapse;}</style>')
 		h.write('<br/>')
@@ -123,6 +123,7 @@ else:
 			test = (plistg['$objects'][i])
 			try:
 				if test.endswith('@3x.ktx'):
+					h.write('<tr><td>Filename:<br><font size="3" color="green">'+str(test)+'</font></td></tr>')
 					h.write('<tr>')
 					h.write('<td>')
 					image = test.split('.')
@@ -150,12 +151,21 @@ else:
 				
 			try:
 				if test.endswith('@2x.ktx'):
+					h.write('<tr><td>Filename:<br><font size="3" color="green">'+str(test)+'</font></td></tr>')
 					h.write('<tr>')
 					h.write('<td>')
 					image = test.split('.')
 					imagenew = image[0]
-					h.write('<a href=../../'+data_dir+'/'+imagenew+'.png target="_blank">')
-					h.write('<img src=../../'+data_dir+'/'+imagenew+'.png width="310" height="552" ')
+					path2 = os.getcwd()
+					imagepath = (path+'/'+data_dir+'/'+imagenew+'.png')
+					imageoutpath = (outpath+'/Reports/images')
+					#print ('path2: '+path2)
+					#print('image: '+imagepath)
+					#print('imagefinal: '+imageoutpath)
+					#print('foldername: '+foldername)
+					copy(imagepath, imageoutpath)
+					h.write('<a href=./images/'+imagenew+'.png target="_blank">')
+					h.write('<img src=./images/'+imagenew+'.png width="310" height="552" ')
 					h.write('/>')
 					h.write('</a>')
 					h.write('</td>')
@@ -173,7 +183,7 @@ else:
 				if test.endswith('.png'):
 					h.write('<tr>')
 					h.write('<td>')
-					h.write('File type not found on system - '+str(test))
+					h.write('File not found on system. <br> <font size="3" color="green">'+str(test)+'</font>')
 					h.write('</td>')
 					h.write('</tr>')
 					#new html block
