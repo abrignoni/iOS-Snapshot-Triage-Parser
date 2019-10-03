@@ -42,6 +42,12 @@ for root, dirs, filenames in os.walk(data_dir):
 				#print(pathlog[count])
 				count = count + 1
 				
+			elif f.endswith('@2x.ktx'):
+				pathfound = os.path.join(root, f)
+				copy(pathfound, outpath)
+				pathlog.insert(count, pathfound)
+				#print(pathlog[count])
+				count = count + 1	
 			
 if pathfound == 0:
 	print('')
