@@ -28,7 +28,7 @@ pathfound = 0
 
 #create directories
 #foldername = str(int(datetime.datetime.now().timestamp()))
-foldername = ("SnapshotTriageReports_" + datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+foldername = ("iOSSnapshotTriageReports_" + datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
 
 #calculate timestamps
 unix = datetime.datetime(1970, 1, 1)  
